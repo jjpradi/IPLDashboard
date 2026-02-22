@@ -1,0 +1,39 @@
+.live-container {
+  max-width: 900px;
+  margin: auto;
+  font-family: Arial, sans-serif;
+}
+
+.match-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e1e1e;
+  color: white;
+  padding: 16px;
+}
+
+.team {
+  text-align: center;
+}
+
+.team img {
+  width: 50px;
+}
+
+.live {
+  color: red;
+  font-weight: bold;
+}
+
+.score-card {
+  background: #f4f4f4;
+  padding: 16px;
+  text-align: center;
+}
+
+.match-info {
+  background: #fff3cd;
+  padding: 10px;
+  font-size: 14px;
+}

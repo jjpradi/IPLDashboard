@@ -9,6 +9,14 @@
   width: 40vw;
   border: solid #ffffff;
   margin: 12px;
+ padding: 33px;
+  border-radius: 23px;
+}
+.team-item {
+  text-decoration: none;
+  color: #ffffff;
+
+ 
 }
 
 .img {

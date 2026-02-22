@@ -1,1 +1,14 @@
 /* Write your CSS here */
+
+.logo-img {
+  height: 3vh;
+}
+
+.match-card {
+  width: 30vw;
+  padding: 15px;
+  margin: 12px;
+color: black;
+  background-color: #ffffff;
+  border-radius: 23px;
+}

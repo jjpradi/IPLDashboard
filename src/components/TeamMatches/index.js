@@ -1,28 +1,61 @@
 // Write your code here
-
+import Recharts from '../Recharts'
+import Loader from 'react-loader-spinner'
+import './index.css'
 import LatestMatch from '../LatestMatch'
 import MatchCard from '../MatchCard'
 import {Component} from 'react'
 class TeamMatches extends Component {
-  state = {recentMatch: [], latestMatch: {}, bannerImg: ''}
+  state = {
+    recentMatch: [],
+    bgColor: '',
+    latestMatch: {},
+    bannerImg: '',
+    isLoading: true,
+  }
   componentDidMount() {
     this.getTeamMatches()
   }
 
+  onBack = () => {
+    const {history} = this.props
 
+    history.replace('/')
+  }
+  getColor = id => {
+    switch (id) {
+      case 'RCB':
+        return 'red'
+      case 'KKR':
+        return 'violet'
+      case 'CSK':
+        return 'yellow'
+      case 'RR':
+        return 'blue'
+      case 'MI':
+        return 'blue'
+    }
+  }
 
   getTeamMatches = async () => {
     const {params} = this.props.match
     const {id} = params
     console.log(id)
+
+    const newColor = this.getColor(id)
+
+    console.log(newColor)
+    this.setState({
+      bgColor: newColor,
+    })
     const response = await fetch(`https://apis.ccbp.in/ipl/${id}`)
 
     const data = await response.json()
 
     console.log(data)
-console.log(data.recent_matches)
-console.log(data.latest_match_details)
-    const recentMatches = data.recent_matches (e=>({
+    console.log(data.recent_matches)
+    console.log(data.latest_match_details)
+    const recentMatches = data.recent_matches.map(e => ({
       umpires: e.umpires,
 
       result: e.result,
@@ -32,13 +65,15 @@ console.log(data.latest_match_details)
       date: e.date,
       venue: e.venue,
       competingTeamLogo: e.competing_team_logo,
-
+      competingTeam: e.competing_team,
       firstInnings: e.first_innings,
       secondInnings: e.second_innings,
       matchStatus: e.match_status,
     }))
 
-    const latestMatches = data.latest_match_details.map(e => ({
+    const e = data.latest_match_details
+
+    const latestMatches = {
       umpires: e.umpires,
       result: e.result,
 
@@ -51,42 +86,68 @@ console.log(data.latest_match_details)
       firstInnings: e.first_innings,
       secondInnings: e.second_innings,
       matchStatus: e.match_status,
-    }))
+    }
 
+    console.log(data.latest_match_details)
 
-
-console.log(data.latest_match_details)
+    console.log(recentMatches)
+    console.log(latestMatches)
 
     const bannerImage = data.team_banner_url
 
     this.setState({
-      recentMatch:recentMatches,
-      latestMatch:latestMatches,
-      bannerImg:bannerImage,
+      recentMatch: recentMatches,
+      latestMatch: latestMatches,
+      bannerImg: bannerImage,
+
+      isLoading: false,
     })
   }
 
-  render() {
-    const {recentMatch,latestMatch,bannerImg} = this.state
-   
-  console.log(recentMatch)
-  console.log(latestMatch)
+  renderLoader = () => {
     return (
-      <div>
-        <img src={bannerImg} />
-        <div>
+      <div data-testid="loader">
+        <Loader type="Oval" color="#ffffff" />
+      </div>
+    )
+  }
+
+  renderSuccess = () => {
+    const {bannerImg, bgColor, latestMatch, recentMatch} = this.state
+    return (
+      <div style={{backgroundColor: bgColor}}>
+        <img alt="team banner" src={bannerImg} />
+
+        <div className="latest">
           <LatestMatch latestMatch={latestMatch} />
+
+          <div className="chart">
+            {' '}
+            <Recharts dataStat={recentMatch} />
+          </div>
         </div>
 
         <div>
-          <ul>
+          <ul className="match-list">
             {recentMatch.map(e => (
-              <MatchCard />
+              <MatchCard key={e.id} item={e} />
             ))}
           </ul>
         </div>
+
+        <button onClick={this.onBack}> Back</button>
       </div>
     )
+  }
+
+  render() {
+    const {recentMatch, latestMatch, bannerImg, isLoading} = this.state
+
+    console.log(recentMatch)
+
+    console.log(latestMatch)
+
+    return <div>{isLoading ? this.renderLoader() : this.renderSuccess()}</div>
   }
 }
 

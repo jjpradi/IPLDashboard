@@ -1,0 +1,16 @@
+.lin {
+  text-decoration: none;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.line {
+  text-decoration: none;
+padding-left: 23px;
+  color: red;
+}

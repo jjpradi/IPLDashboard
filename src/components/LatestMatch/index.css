@@ -1,16 +1,11 @@
 /* Write your CSS here */
 
-.latest-match{
+.latest-match {
+  display: flex;
 
-
-    display: flex;
-
-
-    flex-direction: row;
-    justify-content: space-around;
-    
+  flex-direction: row;
+  justify-content: space-around;
 }
-.img{
-
-    height: 5vh;
+.img {
+  height: 11vh;
 }

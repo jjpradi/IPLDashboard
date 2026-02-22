@@ -9,11 +9,17 @@ const TeamCard = props => {
   const onTeamMatches = () => {}
 
   return (
-    <Link className="" to={`/team/${id}`} onClick={onTeamMatches}>
-      <li className="list-item">
-        <img className="img" src={teamImageUrl} />
+    <Link
 
-        <h1>{name}</h1>
+    
+      className="team-item"
+      to={`/team-matches/${id}`}
+      onClick={onTeamMatches}
+    >
+      <li className="list-item">
+        <img alt={name} className="img" src={teamImageUrl} />
+
+        <p>{name}</p>
       </li>
     </Link>
   )

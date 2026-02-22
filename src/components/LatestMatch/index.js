@@ -3,7 +3,7 @@
 import './index.css'
 const LatestMatch = props => {
   const {latestMatch} = props
-
+  console.log(latestMatch)
   const {
     umpires,
     result,
@@ -21,21 +21,41 @@ const LatestMatch = props => {
   return (
     <div className="latest-match">
       <div>
-        <h1>{competingTeam}</h1>
+        <p>{competingTeam}</p>
         <p>{venue}</p>
-        <p></p>
+        <p>{result}</p>
+        <p>{date}</p>
       </div>
-      <img className="img" src={competingTeamLogo} />
       <div>
-        <h1>First Innings</h1>
-
-        <p>{firstInnings}</p>
-        <h1>Second Innings</h1>
-        <p>{secondInnings}</p>
-
-        <h1>Man of the Match</h1>
-        <p>{manOfTheMatch}</p>
+        <img
+          className="img"
+          alt={`latest match ${competingTeam}`}
+          src={competingTeamLogo}
+        />
+        <p>{matchStatus}</p>
       </div>
+      <ul>
+        <li>
+          {' '}
+          <h1>First Innings</h1>
+          <p>{firstInnings}</p>
+        </li>
+        <li>
+          <h1>Second Innings</h1>
+          <p>{secondInnings}</p>
+        </li>
+
+        <li>
+          <h1>Man of the Match</h1>
+          <p>{manOfTheMatch}</p>
+        </li>
+
+        <li>
+          {' '}
+          <h1>Umpires</h1>
+          <p>{umpires}</p>
+        </li>
+      </ul>
     </div>
   )
 }
